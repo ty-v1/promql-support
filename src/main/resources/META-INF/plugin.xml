@@ -21,6 +21,10 @@
   <!-- Extension points defined by the plugin.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
   <extensions defaultExtensionNs="com.intellij">
-
+    <fileType
+            name="PromQL File"
+            implementationClass="io.github.tyv1.idea.promql.language.PromQLFileType"
+            language="PromQL"
+            extensions="promql"/>
   </extensions>
 </idea-plugin>
