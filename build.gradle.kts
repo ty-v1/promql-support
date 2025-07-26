@@ -90,6 +90,10 @@ tasks {
     compileJava {
         dependsOn(generateLexer)
     }
+    
+    compileKotlin {
+        dependsOn(generateLexer)
+    }
 
     processResources {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
