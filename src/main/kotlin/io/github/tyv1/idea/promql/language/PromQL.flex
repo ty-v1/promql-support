@@ -3,7 +3,7 @@ package io.github.tyv1.idea.promql.language;
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.TokenType;
-import io.github.tyv1.idea.promql.language.psi.PromQlTokenType;
+import io.github.tyv1.idea.promql.language.PromQLTokenTypes;
 
 %%
 
@@ -14,73 +14,6 @@ import io.github.tyv1.idea.promql.language.psi.PromQlTokenType;
 %type IElementType
 %eof{  return;
 %eof}
-
-%{
-  // Define token types as static fields
-  public static final IElementType NUMBER = new PromQlTokenType("NUMBER");
-  public static final IElementType STRING = new PromQlTokenType("STRING");
-
-  // Binary operators
-  public static final IElementType ADD = new PromQlTokenType("ADD");
-  public static final IElementType SUB = new PromQlTokenType("SUB");
-  public static final IElementType MULT = new PromQlTokenType("MULT");
-  public static final IElementType DIV = new PromQlTokenType("DIV");
-  public static final IElementType MOD = new PromQlTokenType("MOD");
-  public static final IElementType POW = new PromQlTokenType("POW");
-
-  // Logical operators
-  public static final IElementType AND = new PromQlTokenType("AND");
-  public static final IElementType OR = new PromQlTokenType("OR");
-  public static final IElementType UNLESS = new PromQlTokenType("UNLESS");
-
-  // Comparison operators
-  public static final IElementType EQ = new PromQlTokenType("EQ");
-  public static final IElementType DEQ = new PromQlTokenType("DEQ");
-  public static final IElementType NE = new PromQlTokenType("NE");
-  public static final IElementType GT = new PromQlTokenType("GT");
-  public static final IElementType LT = new PromQlTokenType("LT");
-  public static final IElementType GE = new PromQlTokenType("GE");
-  public static final IElementType LE = new PromQlTokenType("LE");
-  public static final IElementType RE = new PromQlTokenType("RE");
-  public static final IElementType NRE = new PromQlTokenType("NRE");
-
-  // Aggregation modifiers
-  public static final IElementType BY = new PromQlTokenType("BY");
-  public static final IElementType WITHOUT = new PromQlTokenType("WITHOUT");
-
-  // Join modifiers
-  public static final IElementType ON = new PromQlTokenType("ON");
-  public static final IElementType IGNORING = new PromQlTokenType("IGNORING");
-  public static final IElementType GROUP_LEFT = new PromQlTokenType("GROUP_LEFT");
-  public static final IElementType GROUP_RIGHT = new PromQlTokenType("GROUP_RIGHT");
-
-  public static final IElementType OFFSET = new PromQlTokenType("OFFSET");
-  public static final IElementType BOOL = new PromQlTokenType("BOOL");
-
-  public static final IElementType AGGREGATION_OPERATOR = new PromQlTokenType("AGGREGATION_OPERATOR");
-  public static final IElementType FUNCTION = new PromQlTokenType("FUNCTION");
-
-  // Brackets, braces, parentheses
-  public static final IElementType LEFT_BRACE = new PromQlTokenType("LEFT_BRACE");
-  public static final IElementType RIGHT_BRACE = new PromQlTokenType("RIGHT_BRACE");
-  public static final IElementType LEFT_PAREN = new PromQlTokenType("LEFT_PAREN");
-  public static final IElementType RIGHT_PAREN = new PromQlTokenType("RIGHT_PAREN");
-  public static final IElementType LEFT_BRACKET = new PromQlTokenType("LEFT_BRACKET");
-  public static final IElementType RIGHT_BRACKET = new PromQlTokenType("RIGHT_BRACKET");
-
-  public static final IElementType COMMA = new PromQlTokenType("COMMA");
-  public static final IElementType AT = new PromQlTokenType("AT");
-
-  public static final IElementType SUBQUERY_RANGE = new PromQlTokenType("SUBQUERY_RANGE");
-  public static final IElementType TIME_RANGE = new PromQlTokenType("TIME_RANGE");
-  public static final IElementType DURATION = new PromQlTokenType("DURATION");
-
-  public static final IElementType METRIC_NAME = new PromQlTokenType("METRIC_NAME");
-  public static final IElementType LABEL_NAME = new PromQlTokenType("LABEL_NAME");
-
-  public static final IElementType WHITESPACE = TokenType.WHITE_SPACE;
-  public static final IElementType COMMENT = new PromQlTokenType("COMMENT");
-%}
 
 // Define states
 %state IN_COMMENT
@@ -137,76 +70,76 @@ LABEL_NAME_PATTERN = [a-zA-Z_][a-zA-Z0-9_]*
 // Rules section
 
 // Whitespace and comments
-{WHITE_SPACE}         { return WHITESPACE; }
-{COMMENT}             { return COMMENT; }
+{WHITE_SPACE}         { return PromQLTokenTypes.WHITE_SPACE; }
+{COMMENT}             { return PromQLTokenTypes.COMMENT; }
 
 // Numbers and strings
-{NUMERAL}|{SCIENTIFIC_NUMBER}  { return NUMBER; }
-\'[^\'\\]*(\\.[^\'\\]*)*\'     { return STRING; }
-\"[^\"\\]*(\\.[^\"\\]*)*\"     { return STRING; }
+{NUMERAL}|{SCIENTIFIC_NUMBER}  { return PromQLTokenTypes.NUMBER; }
+\'[^\'\\]*(\\.[^\'\\]*)*\'     { return PromQLTokenTypes.STRING; }
+\"[^\"\\]*(\\.[^\"\\]*)*\"     { return PromQLTokenTypes.STRING; }
 
 // Binary operators
-"+"                   { return ADD; }
-"-"                   { return SUB; }
-"*"                   { return MULT; }
-"/"                   { return DIV; }
-"%"                   { return MOD; }
-"^"                   { return POW; }
+"+"                   { return PromQLTokenTypes.ADD; }
+"-"                   { return PromQLTokenTypes.SUB; }
+"*"                   { return PromQLTokenTypes.MULT; }
+"/"                   { return PromQLTokenTypes.DIV; }
+"%"                   { return PromQLTokenTypes.MOD; }
+"^"                   { return PromQLTokenTypes.POW; }
 
 // Logical operators
-{AND_KEYWORD}         { return AND; }
-{OR_KEYWORD}          { return OR; }
-{UNLESS_KEYWORD}      { return UNLESS; }
+{AND_KEYWORD}         { return PromQLTokenTypes.AND; }
+{OR_KEYWORD}          { return PromQLTokenTypes.OR; }
+{UNLESS_KEYWORD}      { return PromQLTokenTypes.UNLESS; }
 
 // Comparison operators
-"="                   { return EQ; }
-"=="                  { return DEQ; }
-"!="                  { return NE; }
-">"                   { return GT; }
-"<"                   { return LT; }
-">="                  { return GE; }
-"<="                  { return LE; }
-"=~"                  { return RE; }
-"!~"                  { return NRE; }
+"="                   { return PromQLTokenTypes.EQ; }
+"=="                  { return PromQLTokenTypes.DEQ; }
+"!="                  { return PromQLTokenTypes.NE; }
+">"                   { return PromQLTokenTypes.GT; }
+"<"                   { return PromQLTokenTypes.LT; }
+">="                  { return PromQLTokenTypes.GE; }
+"<="                  { return PromQLTokenTypes.LE; }
+"=~"                  { return PromQLTokenTypes.RE; }
+"!~"                  { return PromQLTokenTypes.NRE; }
 
 // Aggregation modifiers
-{BY_KEYWORD}          { return BY; }
-{WITHOUT_KEYWORD}     { return WITHOUT; }
+{BY_KEYWORD}          { return PromQLTokenTypes.BY; }
+{WITHOUT_KEYWORD}     { return PromQLTokenTypes.WITHOUT; }
 
 // Join modifiers
-{ON_KEYWORD}          { return ON; }
-{IGNORING_KEYWORD}    { return IGNORING; }
-{GROUP_LEFT_KEYWORD}  { return GROUP_LEFT; }
-{GROUP_RIGHT_KEYWORD} { return GROUP_RIGHT; }
+{ON_KEYWORD}          { return PromQLTokenTypes.ON; }
+{IGNORING_KEYWORD}    { return PromQLTokenTypes.IGNORING; }
+{GROUP_LEFT_KEYWORD}  { return PromQLTokenTypes.GROUP_LEFT; }
+{GROUP_RIGHT_KEYWORD} { return PromQLTokenTypes.GROUP_RIGHT; }
 
-{OFFSET_KEYWORD}      { return OFFSET; }
-{BOOL_KEYWORD}        { return BOOL; }
+{OFFSET_KEYWORD}      { return PromQLTokenTypes.OFFSET; }
+{BOOL_KEYWORD}        { return PromQLTokenTypes.BOOL; }
 
 // Aggregation operators
-{AGGREGATION_OPERATOR_KEYWORD}  { return AGGREGATION_OPERATOR; }
+{AGGREGATION_OPERATOR_KEYWORD}  { return PromQLTokenTypes.AGGREGATION_OPERATOR; }
 
 // Functions
-{FUNCTION_KEYWORD}    { return FUNCTION; }
+{FUNCTION_KEYWORD}    { return PromQLTokenTypes.FUNCTION; }
 
 // Brackets, braces, parentheses
-"{"                   { return LEFT_BRACE; }
-"}"                   { return RIGHT_BRACE; }
-"("                   { return LEFT_PAREN; }
-")"                   { return RIGHT_PAREN; }
-"["                   { return LEFT_BRACKET; }
-"]"                   { return RIGHT_BRACKET; }
+"{"                   { return PromQLTokenTypes.LEFT_BRACE; }
+"}"                   { return PromQLTokenTypes.RIGHT_BRACE; }
+"("                   { return PromQLTokenTypes.LEFT_PAREN; }
+")"                   { return PromQLTokenTypes.RIGHT_PAREN; }
+"["                   { return PromQLTokenTypes.LEFT_BRACKET; }
+"]"                   { return PromQLTokenTypes.RIGHT_BRACKET; }
 
-","                   { return COMMA; }
-"@"                   { return AT; }
+","                   { return PromQLTokenTypes.COMMA; }
+"@"                   { return PromQLTokenTypes.AT; }
 
 // Time-related tokens
-"["{DURATION}"]"      { return TIME_RANGE; }
-"["{DURATION}":"{DURATION}?"]"  { return SUBQUERY_RANGE; }
-{DURATION}            { return DURATION; }
+"["{DURATION}"]"      { return PromQLTokenTypes.TIME_RANGE; }
+"["{DURATION}":"{DURATION}?"]"  { return PromQLTokenTypes.SUBQUERY_RANGE; }
+{DURATION}            { return PromQLTokenTypes.DURATION; }
 
 // Metric and label names
-{METRIC_NAME_PATTERN}  { return METRIC_NAME; }
-{LABEL_NAME_PATTERN}   { return LABEL_NAME; }
+{METRIC_NAME_PATTERN}  { return PromQLTokenTypes.METRIC_NAME; }
+{LABEL_NAME_PATTERN}   { return PromQLTokenTypes.LABEL_NAME; }
 
 // Catch-all rule for unrecognized tokens
-[^]                   { return TokenType.BAD_CHARACTER; }
+[^]                   { return PromQLTokenTypes.BAD_CHARACTER; }
