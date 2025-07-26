@@ -4,7 +4,7 @@ import com.intellij.openapi.fileTypes.LanguageFileType
 import javax.swing.Icon
 
 
-class PromQLFileType : LanguageFileType(PromQl.INSTANCE) {
+class PromQLFileType : LanguageFileType(PromQL.INSTANCE) {
 
   override fun getName(): String {
     return "PromQL File"
