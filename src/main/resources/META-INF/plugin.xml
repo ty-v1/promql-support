@@ -8,8 +8,8 @@
        Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
        Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
   <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
+    PromQL Support for IntelliJ IDEA.<br>
+    <em>Provides syntax highlighting for Prometheus Query Language (PromQL).</em>
   ]]></description>
 
   <!-- Product and plugin compatibility requirements.
@@ -21,6 +21,15 @@
   <!-- Extension points defined by the plugin.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
   <extensions defaultExtensionNs="com.intellij">
-
+    <fileType
+            name="PromQL File"
+            implementationClass="io.github.tyv1.idea.promql.language.PromQLFileType"
+            language="PromQL"
+            extensions="promql"/>
+    <lang.syntaxHighlighterFactory
+            language="PromQL"
+            implementationClass="io.github.tyv1.idea.promql.language.highlighting.PromQLSyntaxHighlighterFactory"/>
+    <colorSettingsPage
+            implementation="io.github.tyv1.idea.promql.language.highlighting.PromQLColorSettingsPage"/>
   </extensions>
 </idea-plugin>

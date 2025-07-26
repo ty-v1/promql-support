@@ -14,6 +14,14 @@ kotlin {
     jvmToolchain(21)
 }
 
+sourceSets {
+    main {
+        java {
+            srcDirs("src/main/gen")
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 
@@ -78,4 +86,36 @@ tasks {
         sourceCompatibility = "21"
         targetCompatibility = "21"
     }
+
+    compileJava {
+        dependsOn(generateLexer)
+    }
+    
+    compileKotlin {
+        dependsOn(generateLexer)
+    }
+
+    processResources {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+
+    processTestResources {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+
+    // GrammarKit configuration for parser and lexer generation
+    generateLexer {
+        sourceFile.set(file("src/main/kotlin/io/github/tyv1/idea/promql/language/PromQL.flex"))
+        targetOutputDir.set(file("src/main/gen/io/github/tyv1/idea/promql/language"))
+        purgeOldFiles.set(true)
+    }
+
+//    generateParser {
+//        sourceFile.set(file("src/main/kotlin/io/github/tyv1/idea/promql/language/PromQL.bnf"))
+//        targetRootOutputDir.set(file("src/main/gen"))
+//        purgeOldFiles.set(true)
+//        pathToParser.set("/io/github/tyv1/idea/promql/language/parser/PromQLParser.java")
+//        pathToPsiRoot.set("/io/github/tyv1/idea/promql/language/psi")
+//        purgeOldFiles.set(true)
+//    }
 }
