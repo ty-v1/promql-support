@@ -1,11 +1,10 @@
 package io.github.tyv1.idea.promql.language
 
-import com.intellij.icons.AllIcons
+import com.intellij.openapi.util.IconLoader
 
 object PromQlIcons {
-  /**
-   * TODO replace to prometheus icon　
-   * Icon for PromQL files.
-   */
-  val FILE = AllIcons.FileTypes.Java
+    /**
+     * Icon for PromQL files.
+     */
+    val FILE = IconLoader.getIcon("/icons/prometheus-logo.svg", PromQlIcons::class.java)
 }
