@@ -12,6 +12,14 @@
     <em>Provides syntax highlighting for Prometheus Query Language (PromQL).</em>
   ]]></description>
 
+  <change-notes><![CDATA[
+        <p>0.0.1</p>
+        <ul>
+            <li>Initial release</li>
+        </ul>
+    ]]>
+  </change-notes>
+
   <!-- Product and plugin compatibility requirements.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
   <depends>com.intellij.modules.platform</depends>
