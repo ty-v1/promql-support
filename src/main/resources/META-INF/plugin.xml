@@ -3,7 +3,7 @@
   <id>io.github.tyv1.idea.promql</id>
   <name>PromQL Support</name>
   <vendor>ty-v1</vendor>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
 
   <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
        Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
@@ -14,6 +14,10 @@
   ]]></description>
 
   <change-notes><![CDATA[
+        <p>0.0.2</p>
+        <ul>
+            <li>Update plugin icon</li>
+        </ul>
         <p>0.0.1</p>
         <ul>
             <li>Initial release</li>
